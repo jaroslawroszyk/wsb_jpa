@@ -3,8 +3,12 @@ package com.jpacourse.persistance.entity;
 import com.jpacourse.persistance.enums.TreatmentType;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "MEDICAL_TREATMENT")
 public class MedicalTreatmentEntity {
 
@@ -18,28 +22,7 @@ public class MedicalTreatmentEntity {
 	@Enumerated(EnumType.STRING)
 	private TreatmentType type;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public TreatmentType getType() {
-		return type;
-	}
-
-	public void setType(TreatmentType type) {
-		this.type = type;
-	}
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "VISIT_ID")
+	private VisitEntity visit;
 }

@@ -1,10 +1,15 @@
 package com.jpacourse.persistance.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "VISIT")
 public class VisitEntity {
 
@@ -17,28 +22,14 @@ public class VisitEntity {
 	@Column(nullable = false)
 	private LocalDateTime time;
 
-	public Long getId() {
-		return id;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, name = "DOCTOR_ID")
+	private DoctorEntity doctor;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, name = "PATIENT_ID")
+	private PatientEntity patient;
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public LocalDateTime getTime() {
-		return time;
-	}
-
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
-
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<MedicalTreatmentEntity> medicalTreatments;
 }
