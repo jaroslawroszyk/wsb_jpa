@@ -6,7 +6,7 @@ import com.jpacourse.persistance.entity.AddressEntity;
 public final class AddressMapper
 {
 
-    public static AddressTO mapToTO(final AddressEntity addressEntity)
+    public static AddressTO mapToTo(final AddressEntity addressEntity)
     {
         if (addressEntity == null)
         {
