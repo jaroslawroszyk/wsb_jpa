@@ -1,7 +1,6 @@
 package com.jpacourse.rest;
 
 import com.jpacourse.dto.AddressTO;
-import com.jpacourse.dto.PatientTo;
 import com.jpacourse.rest.exception.EntityNotFoundException;
 import com.jpacourse.service.AddressService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +20,6 @@ public class AddressController {
     @GetMapping("/address/{id}")
     AddressTO findById(@PathVariable final Long id) {
         try {
-//            final AddressTO address = addressService.findById(id);
-//            if (address != null) {
-//                return address;
-//            }
-//            throw new EntityNotFoundException(id);
             return addressService.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 
         } catch (Exception e) {

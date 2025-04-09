@@ -18,23 +18,8 @@ public class PatientMapper {
         patientTo.setTelephoneNumber(patientEntity.getTelephoneNumber());
         patientTo.setDateOfBirth(patientEntity.getDateOfBirth());
         patientTo.setAddress(patientEntity.getAddress());
+        patientTo.setVisits(patientEntity.getVisits().stream().map(VisitMapper::mapToTo).toList());
 
-        /*
-
-         // Przekształcenie wizyt
-        List<VisitEntity> visits = patientEntity.getVisits();
-        List<VisitDTO> visitDTOs = visits.stream().map(visit -> {
-            VisitDTO visitDTO = new VisitDTO();
-            visitDTO.setTime(visit.getTime());
-            visitDTO.setDoctorFullName(visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName());
-            visitDTO.setTreatmentTypes(visit.getTreatments().stream()
-                    .map(MedicalTreatmentEntity::getType)
-                    .collect(Collectors.toList()));
-            return visitDTO;
-        }).collect(Collectors.toList());
-
-        patientTO.setVisits(visitDTOs);
-         */
         return patientTo;
     }
 

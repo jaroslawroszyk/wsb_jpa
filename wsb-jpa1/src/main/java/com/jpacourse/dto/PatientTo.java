@@ -1,13 +1,11 @@
 package com.jpacourse.dto;
 
 import com.jpacourse.persistance.entity.AddressEntity;
-import com.jpacourse.persistance.entity.VisitEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Getter

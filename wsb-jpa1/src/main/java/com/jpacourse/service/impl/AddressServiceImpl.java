@@ -25,8 +25,6 @@ public class AddressServiceImpl implements AddressService
 
     @Override
     public Optional<AddressTO> findById(Long id) {
-//        final AddressEntity entity = addressDao.findOne(id);
-//        return AddressMapper.mapToTO(entity);
         return Optional.ofNullable(AddressMapper.mapToTo(addressDao.findOne(id)));
     }
 }
