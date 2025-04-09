@@ -24,6 +24,15 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Optional<PatientTo> findById(Long id) {
         return Optional.ofNullable(PatientMapper.mapToTo(patientDao.findOne(id)));
+    }
 
+    @Override
+    public void deleteById(Long id) {
+//        try{
+//
+//        } catch (IllegalArgumentException e){
+//            throw new PatientNotFoundException(id);
+//        }
+        patientDao.delete(id);
     }
 }
