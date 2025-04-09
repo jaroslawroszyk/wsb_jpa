@@ -22,7 +22,6 @@ public class AddressDaoTest {
     @Autowired
     private AddressDao addressDao;
 
-    @Transactional
     @Test
     @Sql("/data/address.sql")
     public void testShouldFindAddressById() {
@@ -34,7 +33,6 @@ public class AddressDaoTest {
         assertThat(addressEntity.getCity()).isEqualTo("Warszawa");
     }
 
-    @Transactional
     @Test
     @Sql("/data/address.sql")
     public void testShouldRemoveAddressById() {
@@ -47,7 +45,6 @@ public class AddressDaoTest {
         assertThat(addressDao.findOne(warsaw_id)).isNull();
     }
 
-    @Transactional
     @Test
     @Sql("/data/address.sql")
     public void testShouldNotRemoveAddressIfIdNotExist() {
