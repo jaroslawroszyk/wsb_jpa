@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -21,5 +22,5 @@ public class PatientTo implements Serializable
     private String patientNumber;
     private LocalDate dateOfBirth;
     private AddressEntity address;
-    private List<VisitEntity> visits;
+    private List<VisitTo> visits;
 }
