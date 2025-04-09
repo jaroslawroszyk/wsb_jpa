@@ -32,4 +32,14 @@ public class VisitEntity {
 
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<MedicalTreatmentEntity> medicalTreatments;
+
+	public void addMedicalTreatment(MedicalTreatmentEntity medicalTreatment) {
+		this.medicalTreatments.add(medicalTreatment);
+		medicalTreatment.setVisit(this);
+	}
+
+	public void removeMedicalTreatment(MedicalTreatmentEntity visit) {
+		this.medicalTreatments.remove(visit);
+		visit.setVisit(null);
+	}
 }

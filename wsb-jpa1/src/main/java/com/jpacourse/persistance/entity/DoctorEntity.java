@@ -2,6 +2,8 @@ package com.jpacourse.persistance.entity;
 
 import com.jpacourse.persistance.enums.Specialization;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +39,19 @@ public class DoctorEntity {
 	private Specialization specialization;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false, name = "ADDRESS_ID")
+	@JoinColumn(nullable = false, name = "ADDRESS_ID", referencedColumnName = "ID")
 	private AddressEntity address;
 
 	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<VisitEntity> visits;
+
+	public void addVisit(VisitEntity visit) {
+		this.visits.add(visit);
+		visit.setDoctor(this);
+	}
+
+	public void removeVisit(VisitEntity visit) {
+		this.visits.remove(visit);
+		visit.setDoctor(null);
+	}
 }

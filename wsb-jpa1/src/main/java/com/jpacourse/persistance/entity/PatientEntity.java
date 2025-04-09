@@ -2,6 +2,7 @@ package com.jpacourse.persistance.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,5 +40,15 @@ public class PatientEntity {
 	private AddressEntity address;
 
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<VisitEntity> visits;
+	private List<VisitEntity> visits = new ArrayList<>();
+
+	public void addVisit(VisitEntity visit) {
+		this.visits.add(visit);
+		visit.setPatient(this);
+	}
+
+	public void removeVisit(VisitEntity visit) {
+		this.visits.remove(visit);
+		visit.setPatient(null);
+	}
 }
