@@ -2,8 +2,11 @@ package com.jpacourse.service.impl;
 
 import com.jpacourse.dto.PatientTo;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.rest.exception.EntityNotFoundException;
+import com.jpacourse.rest.exception.PatientNotFoundException;
 import com.jpacourse.service.PatientService;
 import com.jpacourse.persistance.dao.PatientDao;
+import org.hibernate.query.sqm.PathElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,11 +31,10 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void deleteById(Long id) {
-//        try{
-//
-//        } catch (IllegalArgumentException e){
-//            throw new PatientNotFoundException(id);
-//        }
-        patientDao.delete(id);
+        try {
+            patientDao.delete(id);
+        } catch (EntityNotFoundException e) {
+            throw new PatientNotFoundException(id);
+        }
     }
 }

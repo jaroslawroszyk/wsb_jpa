@@ -1,6 +1,5 @@
 package com.jpacourse.persistance.helpers;
 
-import com.jpacourse.persistance.entity.AddressEntity;
 import com.jpacourse.persistance.entity.PatientEntity;
 
 import java.time.LocalDate;

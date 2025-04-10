@@ -1,6 +1,5 @@
 package com.jpacourse.persistance.dao;
 
-import com.jpacourse.persistance.entity.AddressEntity;
 import com.jpacourse.persistance.entity.PatientEntity;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
