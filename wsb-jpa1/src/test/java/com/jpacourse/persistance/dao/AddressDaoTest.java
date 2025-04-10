@@ -99,6 +99,4 @@ public class AddressDaoTest {
         final AddressEntity removed = addressDao.findOne(saved.getId());
         assertThat(removed).isNull();
     }
-
-
 }
