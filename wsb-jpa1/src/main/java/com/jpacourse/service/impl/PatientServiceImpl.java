@@ -6,7 +6,6 @@ import com.jpacourse.rest.exception.EntityNotFoundException;
 import com.jpacourse.rest.exception.PatientNotFoundException;
 import com.jpacourse.service.PatientService;
 import com.jpacourse.persistance.dao.PatientDao;
-import org.hibernate.query.sqm.PathElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
