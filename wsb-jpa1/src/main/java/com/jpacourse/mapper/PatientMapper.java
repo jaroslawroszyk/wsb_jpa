@@ -9,6 +9,7 @@ public class PatientMapper {
         if (patientEntity == null) {
             return null;
         }
+
         final PatientTo patientTo = new PatientTo();
         patientTo.setId(patientEntity.getId());
         patientTo.setFirstName(patientEntity.getFirstName());

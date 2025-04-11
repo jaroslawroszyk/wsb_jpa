@@ -32,5 +32,4 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
 
         entityManager.merge(visitEntity);
     }
-
 }
