@@ -12,6 +12,7 @@ public class PatientHelpers {
     public static PatientEntity createPatient() {
         PatientEntity patientEntity = new PatientEntity();
 
+        patientEntity.setId(123L);
         patientEntity.setFirstName("FOo");
         patientEntity.setLastName("Bar");
         patientEntity.setTelephoneNumber("0721");
