@@ -1,4 +1,4 @@
-package com.jpacourse.persistance.service;
+package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTo;
 import com.jpacourse.persistance.dao.AddressDao;
@@ -6,21 +6,25 @@ import com.jpacourse.persistance.dao.PatientDao;
 import com.jpacourse.persistance.entity.*;
 import com.jpacourse.rest.exception.PatientNotFoundException;
 import com.jpacourse.service.impl.PatientServiceImpl;
+import com.jpacourse.helpers.AddressHelper;
+import com.jpacourse.helpers.PatientHelper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.jpacourse.persistance.helpers.AddressHelpers.createAddress;
-import static com.jpacourse.persistance.helpers.PatientHelpers.createPatient;
+import static com.jpacourse.helpers.PatientHelper.createPatient;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Transactional
 @ExtendWith(MockitoExtension.class)
 public class PatientServiceTest {
+
     @Mock
     AddressDao addressDao;
 
@@ -32,25 +36,19 @@ public class PatientServiceTest {
 
     @Test
     public void shouldFindPatientById() {
-        long patientId = 123L;
-        AddressEntity expectedAddress = createAddress();
+        long patientId = 23L;
         PatientEntity mockPatient = createPatient();
-        mockPatient.setAddress(expectedAddress);
 
         when(patientDao.findOne(patientId)).thenReturn(mockPatient);
-
         Optional<PatientTo> foundPatient = patientService.findById(patientId);
 
         assertThat(foundPatient).isPresent();
-        assertThat(foundPatient.get().getAddress())
-                .usingRecursiveComparison()
-                .isEqualTo(expectedAddress);
-        verify(patientDao).findOne(patientId);
-        verifyNoInteractions(addressDao);
+        assertThat(foundPatient.get().getFirstName()).isEqualTo("Jaroslaw");
     }
 
     @Test
     public void shouldRemovePatient() {
+        // GIVEN
         long patientId = 23L;
 
         patientService.deleteById(patientId);

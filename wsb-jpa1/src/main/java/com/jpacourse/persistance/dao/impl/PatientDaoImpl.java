@@ -35,8 +35,28 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         entityManager.merge(visitEntity);
     }
 
+    public void removeVisitFromPatient(Long patientId, Long visitId) throws IllegalArgumentException {
+        PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
+        if (patient == null) {
+            throw new IllegalArgumentException("No patient found with the given ID.");
+        }
+
+        VisitEntity visit = entityManager.find(VisitEntity.class, visitId);
+        if (visit == null) {
+            throw new IllegalArgumentException("No visit found with the given ID.");
+        }
+
+        if (!visit.getPatient().equals(patient)) {
+            throw new IllegalArgumentException("This visit does not belong to the specified patient.");
+        }
+
+        patient.getVisits().remove(visit);
+        visit.setPatient(null);
+        entityManager.flush();
+    }
+
     @Override
-    public List<PatientEntity> findPatientsByLastName(String lastName){
+    public List<PatientEntity> findPatientsByLastName(String lastName) {
         String query = "SELECT p FROM PatientEntity p WHERE p.lastName = :lastName";
 
         return entityManager.createQuery(query, PatientEntity.class)
@@ -45,7 +65,7 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     }
 
     @Override
-    public List<PatientEntity> findPatientsByVisitCountGreaterThan(int visitsCount){
+    public List<PatientEntity> findPatientsByVisitCountGreaterThan(int visitsCount) {
         String query = "SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :visitsCount";
 
         return entityManager.createQuery(query, PatientEntity.class)

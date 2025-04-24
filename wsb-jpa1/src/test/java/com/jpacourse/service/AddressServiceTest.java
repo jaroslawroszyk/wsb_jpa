@@ -1,4 +1,4 @@
-package com.jpacourse.persistance.service;
+package com.jpacourse.service;
 
 public class AddressServiceTest {
     // TODO: add test
