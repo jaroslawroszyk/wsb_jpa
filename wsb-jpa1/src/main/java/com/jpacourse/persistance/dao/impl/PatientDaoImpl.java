@@ -6,7 +6,9 @@ import com.jpacourse.persistance.entity.PatientEntity;
 import com.jpacourse.persistance.entity.VisitEntity;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
@@ -31,5 +33,33 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         doctorEntity.addVisit(visitEntity);
 
         entityManager.merge(visitEntity);
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsByLastName(String lastName){
+        String query = "SELECT p FROM PatientEntity p WHERE p.lastName = :lastName";
+
+        return entityManager.createQuery(query, PatientEntity.class)
+                .setParameter("lastName", lastName)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsByVisitCountGreaterThan(int visitsCount){
+        String query = "SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :visitsCount";
+
+        return entityManager.createQuery(query, PatientEntity.class)
+                .setParameter("visitsCount", visitsCount)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsByInsuranceStatusAfterDate(Boolean insured, LocalDate date) {
+        String query = "SELECT p FROM PatientEntity p WHERE p.insured = :insured AND p.insuranceStartDate > :date";
+
+        return entityManager.createQuery(query, PatientEntity.class)
+                .setParameter("insured", insured)
+                .setParameter("date", date)
+                .getResultList();
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.jpacourse.persistance.helpers.PatientHelpers.createPatient;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -95,5 +97,23 @@ public class PatientDaoTest {
         // then
         final PatientEntity removed = patientDao.findOne(saved.getId());
         assertThat(removed).isNull();
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/address.sql",
+            "/data/patients.sql"
+    })
+    public void shouldFindAllPatientsByLastName() {
+        // GIVEN
+        int patientsWithSameLastNameCount = 2;
+
+        // WHEN
+        List<PatientEntity> found = patientDao.findPatientsByLastName("Adamowski");
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found).hasSize(patientsWithSameLastNameCount);
+        assertThat(found).filteredOn("lastName", "Adamowski").isNotNull();
     }
 }
